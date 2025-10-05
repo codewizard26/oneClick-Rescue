@@ -20,7 +20,22 @@
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(99, 102, 241, .25), transparent 60%),
+    radial-gradient(1000px 600px at 120% 10%, rgba(20, 184, 166, .25), transparent 60%),
+    linear-gradient(to bottom, #050507, #0a0a0c);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+@utility glass {
+  @apply bg-white/5 backdrop-blur supports-[backdrop-filter]:bg-white/5 border border-white/10;
+}
+
+@utility btn-primary {
+  @apply inline-flex items-center justify-center px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-500 text-white transition-colors;
+}
+
+@utility btn-secondary {
+  @apply inline-flex items-center justify-center px-4 py-2 rounded-md bg-white/10 hover:bg-white/20 text-white transition-colors;
 }
