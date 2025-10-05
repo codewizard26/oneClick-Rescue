@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
 import { useSearchParams } from "next/navigation";
 
@@ -13,7 +13,7 @@ type MockAsset = {
     urgency: "high" | "medium" | "low";
 };
 
-export default function PlanPage() {
+function PlanInner() {
     const { address } = useAccount();
     const params = useSearchParams();
     const safe = params.get("safe") ?? "";
@@ -84,6 +84,14 @@ export default function PlanPage() {
                 </Link>
             </div>
         </div>
+    );
+}
+
+export default function PlanPage() {
+    return (
+        <Suspense fallback={<div className="p-6 sm:p-10">Loading plan…</div>}>
+            <PlanInner />
+        </Suspense>
     );
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 type Step = {
@@ -11,7 +11,7 @@ type Step = {
     txUrl?: string;
 };
 
-export default function ProgressPage() {
+function ProgressInner() {
     const params = useSearchParams();
     const safe = params.get("safe") ?? "";
     const [steps, setSteps] = useState<Step[]>([
@@ -90,6 +90,14 @@ export default function ProgressPage() {
                 </Link>
             </div>
         </div>
+    );
+}
+
+export default function ProgressPage() {
+    return (
+        <Suspense fallback={<div className="p-6 sm:p-10">Processing…</div>}>
+            <ProgressInner />
+        </Suspense>
     );
 }
 

@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function ReportPage() {
+function ReportInner() {
     const params = useSearchParams();
     const safe = params.get("safe") ?? "";
 
@@ -47,6 +48,14 @@ export default function ReportPage() {
                 </Link>
             </div>
         </div>
+    );
+}
+
+export default function ReportPage() {
+    return (
+        <Suspense fallback={<div className="p-6 sm:p-10">Preparing report…</div>}>
+            <ReportInner />
+        </Suspense>
     );
 }
 
